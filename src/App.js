@@ -1,5 +1,6 @@
-import React from 'react';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import './App.scss';
+import { ChartJS } from './ChartJS/ChartJS';
 
 import {
   BrowserRouter as Router,
@@ -31,8 +32,8 @@ function App() {
             <HomePage/>
           </Route>
         </Switch>
+        <ChartJS/>
       </div>
-      <HomePage/>
       <Footer/>
     </Router>
   );

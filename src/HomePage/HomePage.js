@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import D3Chart from "../D3Chart/D3Chart";
 
 function HomePage() {
-  return (
-    <main className="center" id="main">
+    const [data, setData] = useState({});
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        'http://localhost:3000/budget',
+      );
+      console.log(result.data.myBudget);
+      setData(result.data.myBudget);
+   };
+   fetchData();
+  }, []);
 
-    <div className="page-area">
+  return (
+<main class="center" id="main">
+
+    <div class="page-area">
+
         <article>
             <h1>Stay on track</h1>
             <p>
@@ -63,20 +78,24 @@ function HomePage() {
         </article>
 
         <article>
-            <h1>Pie Chart</h1>
+            <h1>ChartJS Pie Chart</h1>
             <p>
-                <canvas id="myChart" width="300" height="200"></canvas>
+            <canvas id="myChart" width="300" height="300"/>
             </p>
         </article>
 
         <article>
-            <h1>Donut Chart</h1>
-            <p>
-                <canvas id="donutChart" width="300" height="200"></canvas>
-            </p>
-        </article>
-    </div>
-</main>
+            <h1>D3 Pie Chart</h1>
+                <D3Chart
+                data={data}
+                width={300}
+                height={300}
+                innerRadius={100}
+                outerRadius={200}
+                />
+         </article>
+       </div>
+    </main>
   );
 }
 
